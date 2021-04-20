@@ -21,6 +21,7 @@
     "netlify-cms-app": "^2.14.46",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-hot-loader": "^4.13.0",
     "react-player": "^2.9.0",
     "screenfull": "^5.1.0"
   }
