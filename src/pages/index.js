@@ -28,9 +28,17 @@ class App extends Component {
     loop: false
   }
 
-  load = url => {
+  componentDidMount(){
     this.setState({
       url:'https://media.acadmin.net/tracks/W52saJHaog6b7LhFUW9BVF9mxDORI5uZpBe3Lk0L.mp3',
+      played: 0,
+      loaded: 0,
+      pip: false
+    })
+  }
+  load = url => {
+    this.setState({
+      url,
       played: 0,
       loaded: 0,
       pip: false
@@ -118,6 +126,9 @@ class App extends Component {
     }
   }
 
+  handleSelectPlaylist = url =>{
+
+  }
   handleEnded = () => {
     console.log('onEnded')
     this.setState({ playing: this.state.loop })
@@ -147,7 +158,11 @@ class App extends Component {
   render () {
     const { url, playing, controls, light, volume, muted, loop, played, loaded, duration, playbackRate, pip } = this.state
     const SEPARATOR = ' · '
-
+    const playlist = [
+      'https://media.acadmin.net/tracks/eV8HzRCkJX29xXLfa8FiZYJruzaoBzSqD24JR86R.mp3',
+      'https://media.acadmin.net/tracks/OIHYHZ986fvoU0gILTG2ZVQqfgnZRanREhfwu9Th.mp3',
+      'https://media.acadmin.net/tracks/Pu1eVGwQimI6Kl0zGF3k0FS7Z4uynEqrg8NePx5p.mp3'
+    ]
     return (
       <div className='app'>
         <section className='section'>
@@ -160,7 +175,7 @@ class App extends Component {
               height='100%'
               url={url}
               pip={pip}
-              playing={playing}
+              playing={true}
               controls={controls}
               light={light}
               loop={loop}
@@ -184,6 +199,18 @@ class App extends Component {
 
           <table>
             <tbody>
+              <tr>
+                <th>Playlist</th>
+                <td>
+                {playlist.map((item,i)=>{
+                  return (
+                   
+                      <button onClick={()=>this.load(item)}>{i}</button>
+                   
+                  )
+                })}
+                 </td>
+              </tr>
               <tr>
                 <th>Controls</th>
                 <td>
@@ -368,6 +395,7 @@ class App extends Component {
                   <input ref={input => { this.urlInput = input }} type='text' placeholder='Enter URL' />
                   <button onClick={() => {
                     this.setState({ url: this.urlInput.value },()=>{
+                      console.log('set to true')
                       this.setState({ playing: true })
                     })
                   }}>Load</button>
